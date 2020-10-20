@@ -3,6 +3,7 @@ import { Message } from "./Message.js"
 
 const contentTarget = document.querySelector(".messages")
 const friendListSection = document.querySelector(".friends")
+const eventHub = document.querySelector(".container")
 
 /*
     COMPONENT FUNCTION
@@ -24,13 +25,18 @@ const render = messageArray => {
 }
 
 // Listen for when a friend is selected
-friendListSection.addEventListener("change", changeEvent => {
+// friendListSection.addEventListener("change", changeEvent => {
 
-    if (changeEvent.target.classList.contains("friend")) {
-        // Get messages for friend and render the list of messages
-        const friendName = changeEvent.target.value
-        const messages = getMessagesByFriend(friendName)
-        render(messages)
-    }
+//     if (changeEvent.target.classList.contains("friend")) {
+//         // Get messages for friend and render the list of messages
+//         const friendName = changeEvent.target.value
+//         const messages = getMessagesByFriend(friendName)
+//         render(messages)
+//     }
+// })
+// Listen for when a friend is selected. Signal is the "friendSelected" event
+eventHub.addEventListener("friendSelected", event => {
+    const friendName = event.detail.friend
+    const messages = getMessagesByFriend(friendName)
+    render(messages)
 })
-
